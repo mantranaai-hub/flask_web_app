@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title | default("Mantrana.AI | Odisha eLearning Platform") }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700;1,800&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #eaf0ff;
+            --bg-card: #ffffff;
+            --ink-main: #0f1f42;
+            --ink-soft: #4a5a82;
+            --brand: #2f59ff;
+            --brand-dark: #1a3299;
+            --brand-highlight: #8757ff;
+            --accent: #ffb84d;
+            --line: #d5e1ff;
+            --shadow: 0 24px 48px rgba(35, 61, 142, 0.18);
+            --font-body: "Poppins", "Segoe UI", Arial, sans-serif;
+            --font-display: "Playfair Display", "Poppins", "Segoe UI", Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-body);
+            font-style: italic;
+            color: var(--ink-main);
+            position: relative;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 10% 8%, rgba(165, 135, 255, 0.65) 0%, transparent 35%),
+                radial-gradient(circle at 88% 6%, rgba(79, 214, 255, 0.6) 0%, transparent 34%),
+                radial-gradient(circle at 22% 88%, rgba(255, 161, 120, 0.45) 0%, transparent 32%),
+                radial-gradient(circle at 78% 80%, rgba(255, 215, 116, 0.42) 0%, transparent 30%),
+                linear-gradient(140deg, #f8faff 0%, #e9f0ff 46%, #e6eeff 100%);
+        }
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::before {
+            background:
+                linear-gradient(120deg, rgba(97, 88, 255, 0.08) 0%, rgba(97, 88, 255, 0) 35%),
+                linear-gradient(300deg, rgba(0, 207, 255, 0.08) 0%, rgba(0, 207, 255, 0) 33%),
+                linear-gradient(25deg, rgba(255, 149, 76, 0.09) 0%, rgba(255, 149, 76, 0) 28%);
+        }
+
+        body::after {
+            background-image:
+                radial-gradient(rgba(255, 255, 255, 0.35) 1px, transparent 1px),
+                radial-gradient(rgba(143, 164, 255, 0.22) 1px, transparent 1px);
+            background-size: 30px 30px, 52px 52px;
+            background-position: 0 0, 12px 16px;
+            opacity: 0.45;
+        }
+
+        .top-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: none;
+        }
+
+        .nav-wrap {
+            width: 100%;
+            margin: 0;
+            padding: 0.95rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            flex-wrap: wrap;
+        }
+
+        .login-btn {
+            text-decoration: none;
+            color: #fff;
+            background: linear-gradient(135deg, var(--brand) 0%, var(--brand-highlight) 100%);
+            padding: 0.62rem 1rem;
+            border-radius: 11px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.01em;
+            font-family: var(--font-display);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 12px 20px rgba(53, 87, 255, 0.28);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 24px rgba(53, 87, 255, 0.35);
+        }
+
+        .menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+        }
+
+        .menu-item {
+            position: relative;
+        }
+
+        .menu-link {
+            display: inline-block;
+            text-decoration: none;
+            color: var(--ink-main);
+            font-weight: 600;
+            font-size: 0.94rem;
+            font-family: var(--font-display);
+            padding: 0.62rem 0.88rem;
+            border-radius: 9px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .menu-link:hover {
+            background: #eaf0ff;
+            color: var(--brand-dark);
+        }
+
+        .menu-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown {
+            position: absolute;
+            left: 0;
+            top: calc(100% + 8px);
+            width: 220px;
+            list-style: none;
+            margin: 0;
+            padding: 0.45rem;
+            background: #fff;
+            border: none;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px);
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+        }
+
+        .dropdown a {
+            display: block;
+            text-decoration: none;
+            color: var(--ink-main);
+            font-size: 0.91rem;
+            padding: 0.58rem 0.65rem;
+            border-radius: 8px;
+            transition: background 0.18s ease, color 0.18s ease;
+        }
+
+        .dropdown a:hover {
+            background: #edf2ff;
+            color: var(--brand-dark);
+        }
+
+        .logo-holder {
+            min-width: 160px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .logo-box,
+        .logo-img {
+            width: 180px;
+            height: 52px;
+            border-radius: 12px;
+        }
+
+        .logo-box {
+            border: 2px dashed #aec0ff;
+            background: #f8f9ff;
+            color: #2a49a4;
+            font-weight: 700;
+            font-family: var(--font-display);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 0.02em;
+            font-size: 0.93rem;
+        }
+
+        .logo-img {
+            object-fit: contain;
+            border: none;
+            background: #fff;
+            padding: 0.25rem;
+        }
+
+        .page-wrap {
+            width: 100%;
+            margin: 1.15rem 0 2rem;
+            padding: 0 2rem;
+        }
+
+        .hero-card {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            overflow: visible;
+            box-shadow: none;
+        }
+
+        .hero-copy {
+            padding: 1.35rem 1.3rem 1.15rem;
+            border-bottom: none;
+            background: transparent;
+            border-radius: 0;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            font-size: 0.8rem;
+            letter-spacing: 0.04em;
+            font-weight: 700;
+            color: var(--brand-dark);
+            background: rgba(232, 239, 255, 0.7);
+            border: none;
+            border-radius: 999px;
+            padding: 0.35rem 0.7rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero-copy h1 {
+            margin: 0 0 0.6rem;
+            font-family: var(--font-display);
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            font-size: 2rem;
+            line-height: 1.2;
+            color: #111f46;
+        }
+
+        .hero-copy p {
+            margin: 0;
+            max-width: 880px;
+            color: var(--ink-soft);
+            line-height: 1.68;
+            font-size: 0.97rem;
+        }
+
+        .slider {
+            position: relative;
+            width: 100%;
+            height: 430px;
+            overflow: hidden;
+            background: linear-gradient(130deg, #e4edff 0%, #dceeff 52%, #ece7ff 100%);
+            border-radius: 0;
+        }
+
+        .slider::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background:
+                linear-gradient(115deg, rgba(90, 108, 255, 0.22) 0%, rgba(90, 108, 255, 0.02) 48%),
+                linear-gradient(310deg, rgba(0, 204, 255, 0.2) 0%, rgba(0, 204, 255, 0.02) 44%),
+                linear-gradient(180deg, rgba(17, 31, 70, 0.08) 0%, rgba(17, 31, 70, 0.22) 100%);
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+            filter: saturate(0.9) contrast(1.02) brightness(0.94);
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .dot-wrap {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 14px;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            z-index: 3;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.66);
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .dot.active {
+            background: var(--accent);
+        }
+
+        .intro-strip {
+            padding: 1rem 1.2rem;
+            background: transparent;
+            border-top: none;
+            color: var(--ink-soft);
+            font-size: 0.95rem;
+            border-radius: 0;
+        }
+
+        .below-slider-showcase {
+            margin-top: 0.85rem;
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 1.1rem;
+            align-items: stretch;
+        }
+
+        .news-showcase {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 0;
+        }
+
+        .news-header {
+            margin-bottom: 0.7rem;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 0.8rem;
+        }
+
+        .news-header-copy {
+            min-width: 0;
+        }
+
+        .news-header h3 {
+            margin: 0;
+            font-family: var(--font-display);
+            color: #18337d;
+            font-size: 1.35rem;
+            letter-spacing: -0.01em;
+        }
+
+        .news-header p {
+            margin: 0.35rem 0 0;
+            color: var(--ink-soft);
+            font-size: 0.92rem;
+        }
+
+        .news-toggle {
+            border: none;
+            background: rgba(233, 239, 255, 0.9);
+            color: #1f3d8c;
+            font-family: var(--font-display);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            padding: 0.45rem 0.6rem;
+            cursor: pointer;
+        }
+
+        .news-toggle:hover {
+            background: rgba(221, 231, 255, 0.95);
+        }
+
+        .news-main {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 0.85rem;
+            align-items: stretch;
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.45) 0%, rgba(233, 243, 255, 0.4) 100%);
+            border: none;
+            border-radius: 0;
+        }
+
+        .news-image-wrap {
+            width: 100%;
+            height: 170px;
+            overflow: hidden;
+        }
+
+        .news-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .news-content {
+            padding: 0.65rem 0.55rem 0.45rem 0;
+        }
+
+        .news-tag {
+            display: inline-block;
+            background: rgba(233, 239, 255, 0.75);
+            color: #1f3d8c;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            padding: 0.28rem 0.55rem;
+            text-transform: uppercase;
+        }
+
+        .news-title {
+            margin: 0.55rem 0 0.4rem;
+            font-family: var(--font-display);
+            color: #152b63;
+            font-size: 1.1rem;
+            line-height: 1.33;
+        }
+
+        .news-summary {
+            margin: 0;
+            color: #3f517f;
+            font-size: 0.91rem;
+            line-height: 1.58;
+        }
+
+        .news-footer {
+            margin-top: 0.62rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+        }
+
+        .news-counter {
+            color: #2a437b;
+            font-size: 0.82rem;
+            font-weight: 700;
+            font-family: var(--font-display);
+        }
+
+        .news-dots {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .news-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(46, 74, 148, 0.3);
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .news-dot.active {
+            background: #345eff;
+            width: 20px;
+            border-radius: 999px;
+        }
+
+        .below-slider-image {
+            width: 100%;
+            min-width: 0;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            background: transparent;
+        }
+
+        .goal-section {
+            margin-top: 0;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 1.4rem 0;
+            text-align: left;
+            width: 100%;
+        }
+
+        .goal-section h2 {
+            margin: 0 0 0.75rem;
+            color: var(--brand-dark);
+            font-family: var(--font-display);
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            font-size: 1.45rem;
+        }
+
+        .goal-section p {
+            margin: 0 0 0.9rem;
+            color: var(--ink-soft);
+            line-height: 1.65;
+            font-size: 0.97rem;
+        }
+
+        .goal-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .goal-image-wrap {
+            margin-top: 1.15rem;
+            border-radius: 0;
+            overflow: hidden;
+            border: none;
+            background: transparent;
+        }
+
+        .goal-image {
+            width: 100%;
+            height: 310px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .insights-grid {
+            margin-top: 1.25rem;
+            display: grid;
+            grid-template-columns: 1.35fr 1fr;
+            gap: 1rem;
+            align-items: stretch;
+        }
+
+        .motivation-panel {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        .motivation-header {
+            margin-bottom: 0.7rem;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 0.8rem;
+        }
+
+        .motivation-header-copy {
+            min-width: 0;
+        }
+
+        .motivation-panel h3 {
+            margin: 0;
+            color: var(--brand-dark);
+            font-family: var(--font-display);
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            font-size: 1.35rem;
+        }
+
+        .motivation-header p {
+            margin: 0.35rem 0 0;
+            color: var(--ink-soft);
+            font-size: 0.92rem;
+        }
+
+        .motivation-toggle {
+            border: none;
+            background: rgba(233, 239, 255, 0.9);
+            color: #1f3d8c;
+            font-family: var(--font-display);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            padding: 0.45rem 0.6rem;
+            cursor: pointer;
+        }
+
+        .motivation-toggle:hover {
+            background: rgba(221, 231, 255, 0.95);
+        }
+
+        .motivation-main {
+            display: grid;
+            grid-template-columns: 190px 1fr;
+            gap: 0.8rem;
+            align-items: stretch;
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.45) 0%, rgba(233, 243, 255, 0.4) 100%);
+            border: none;
+            border-radius: 0;
+        }
+
+        .motivation-image-wrap {
+            width: 100%;
+            height: 170px;
+            overflow: hidden;
+        }
+
+        .motivation-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .motivation-content {
+            padding: 0.65rem 0.55rem 0.45rem 0;
+        }
+
+        .motivation-tag {
+            display: inline-block;
+            background: rgba(233, 239, 255, 0.75);
+            color: #1f3d8c;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            padding: 0.28rem 0.55rem;
+            text-transform: uppercase;
+        }
+
+        .motivation-title {
+            margin: 0.55rem 0 0.4rem;
+            font-family: var(--font-display);
+            color: #152b63;
+            font-size: 1.1rem;
+            line-height: 1.33;
+        }
+
+        .motivation-summary {
+            margin: 0;
+            color: #3f517f;
+            font-size: 0.91rem;
+            line-height: 1.58;
+        }
+
+        .motivation-footer {
+            margin-top: 0.62rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+        }
+
+        .motivation-counter {
+            color: #2a437b;
+            font-size: 0.82rem;
+            font-weight: 700;
+            font-family: var(--font-display);
+        }
+
+        .motivation-dots {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .motivation-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(46, 74, 148, 0.3);
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .motivation-dot.active {
+            background: #345eff;
+            width: 20px;
+            border-radius: 999px;
+        }
+
+        .motivation-highlight {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0.95rem 0;
+            min-height: 124px;
+            display: flex;
+            align-items: center;
+            box-shadow: none;
+            margin-bottom: 0.75rem;
+        }
+
+        .motivation-highlight p {
+            margin: 0;
+            color: #344369;
+            line-height: 1.6;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .motivation-highlight p.fade-out {
+            opacity: 0.15;
+        }
+
+        .exam-hub {
+            margin-top: 1.35rem;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0.3rem 0 0;
+        }
+
+        .exam-hub h3 {
+            margin: 0;
+            color: #17327e;
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            letter-spacing: -0.01em;
+        }
+
+        .exam-hub .exam-subtitle {
+            margin: 0.45rem 0 0.95rem;
+            color: var(--ink-soft);
+            font-size: 0.94rem;
+        }
+
+        .exam-main-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .exam-main-tab {
+            border: none;
+            background: rgba(255, 255, 255, 0.55);
+            color: #1d3a84;
+            padding: 0.58rem 0.9rem;
+            font-family: var(--font-display);
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+        }
+
+        .exam-main-tab:hover {
+            background: rgba(228, 238, 255, 0.8);
+            transform: translateY(-1px);
+        }
+
+        .exam-main-tab.active {
+            background: linear-gradient(130deg, #dce7ff 0%, #d9f2ff 100%);
+            color: #142e72;
+        }
+
+        .exam-sub-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(140px, 1fr));
+            gap: 0.65rem;
+        }
+
+        .exam-sub-tile {
+            background: rgba(255, 255, 255, 0.45);
+            border: none;
+            border-radius: 0;
+            padding: 0.75rem 0.7rem;
+            text-align: left;
+            min-height: 86px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 0.35rem;
+            transition: background 0.2s ease, transform 0.2s ease;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .exam-sub-tile:hover {
+            background: rgba(233, 242, 255, 0.72);
+            transform: translateY(-2px);
+        }
+
+        .exam-sub-title {
+            margin: 0;
+            color: #18357f;
+            font-family: var(--font-display);
+            font-size: 0.91rem;
+            font-weight: 700;
+            line-height: 1.35;
+        }
+
+        .exam-sub-meta {
+            margin: 0;
+            color: #586b95;
+            font-size: 0.78rem;
+            line-height: 1.45;
+        }
+
+        .site-footer {
+            margin-top: 2rem;
+            background: #161a22;
+            color: #a9b4c8;
+            padding: 2.2rem 2rem 1.25rem;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1.1fr 1fr;
+            gap: 1.4rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            color: #ffffff;
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            margin: 0;
+        }
+
+        .footer-company-name {
+            margin: 0;
+            color: #d6deed;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .footer-address,
+        .footer-support {
+            margin: 0;
+            font-size: 0.86rem;
+            line-height: 1.55;
+        }
+
+        .footer-title {
+            margin: 0 0 0.58rem;
+            font-family: var(--font-display);
+            color: #f4f7ff;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .footer-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            gap: 0.38rem;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #b6c2da;
+            font-size: 0.87rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+
+        .footer-app-badges {
+            display: grid;
+            gap: 0.48rem;
+            margin-bottom: 0.85rem;
+        }
+
+        .app-badge {
+            width: fit-content;
+            border: 1px solid rgba(210, 222, 255, 0.3);
+            color: #eef3ff;
+            text-decoration: none;
+            padding: 0.42rem 0.65rem;
+            font-size: 0.79rem;
+            border-radius: 7px;
+            line-height: 1.2;
+        }
+
+        .footer-social-label {
+            margin: 0 0 0.4rem;
+            color: #d6deed;
+            font-size: 0.86rem;
+            font-weight: 600;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 0.42rem;
+        }
+
+        .footer-socials a {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(234, 241, 255, 0.12);
+            color: #f3f6ff;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.72rem;
+            font-family: var(--font-display);
+            transition: background 0.2s ease;
+        }
+
+        .footer-socials a:hover {
+            background: rgba(234, 241, 255, 0.28);
+        }
+
+        .footer-bottom {
+            margin-top: 1.7rem;
+            padding-top: 0.92rem;
+            border-top: 1px solid rgba(219, 229, 255, 0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-bottom p {
+            margin: 0;
+            font-size: 0.82rem;
+            color: #99a7c2;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 0.95rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-bottom-links a {
+            text-decoration: none;
+            color: #9db0d1;
+            font-size: 0.82rem;
+        }
+
+        .footer-bottom-links a:hover {
+            color: #ffffff;
+        }
+
+        @media (max-width: 960px) {
+            .slider {
+                height: 340px;
+            }
+
+            .hero-copy h1 {
+                font-size: 1.72rem;
+            }
+
+            .insights-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .below-slider-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .news-main {
+                grid-template-columns: 1fr;
+            }
+
+            .news-image-wrap {
+                height: 200px;
+            }
+
+            .motivation-main {
+                grid-template-columns: 1fr;
+            }
+
+            .motivation-image-wrap {
+                height: 200px;
+            }
+
+            .exam-sub-grid {
+                grid-template-columns: repeat(2, minmax(150px, 1fr));
+            }
+
+            .below-slider-image {
+                height: 220px;
+            }
+
+            .footer-top {
+                grid-template-columns: repeat(2, minmax(220px, 1fr));
+            }
+        }
+
+        @media (max-width: 760px) {
+            .nav-wrap {
+                padding: 0.9rem 1rem;
+            }
+
+            .page-wrap {
+                padding: 0 1rem;
+            }
+
+            .nav-wrap {
+                align-items: flex-start;
+            }
+
+            .nav-left {
+                width: 100%;
+            }
+
+            .logo-holder {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .slider {
+                height: 280px;
+            }
+
+            .hero-copy {
+                padding: 1rem;
+            }
+
+            .hero-copy h1 {
+                font-size: 1.35rem;
+            }
+
+            .below-slider-image {
+                width: 100%;
+                min-width: 0;
+                height: 210px;
+            }
+
+            .exam-sub-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .site-footer {
+                padding: 1.7rem 1rem 1.1rem;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% set company_name = company_name | default("Mantrana.AI") %}
+    {% set logo_text = logo_text | default(company_name ~ " LOGO") %}
+    {% set logo_url = logo_url | default("") %}
+    {% set login_url = login_url | default("/login") %}
+    {% set practice_pack = practice_pack | default({"label": "Practice Packs", "href": "/practice-packs"}) %}
+    {% set pdf_menu = pdf_menu | default({"label": "PDFs", "href": "#"}) %}
+    {% set current_affairs_menu = current_affairs_menu | default({"label": "Current Affairs", "href": "#"}) %}
+    {% set exam_route_base = exam_route_base | default("/exams") %}
+    {% set ui_text = ui_text | default({
+        "slider_pause_hint": "Click to pause slider",
+        "slider_resume_hint": "Paused. Click to resume slider",
+        "hero_badge": "ELEARNING FOR ODISHA ASPIRANTS",
+        "news": {
+            "title": "Latest Exam News",
+            "subtitle": "Live highlights for Odisha government exam aspirants",
+            "pause_label": "Pause News",
+            "resume_label": "Resume News",
+            "default_tag": "News",
+            "default_title": "Stay updated with exam announcements.",
+            "default_summary": "Important updates will appear here.",
+            "default_image_alt": "Exam news image",
+            "dot_aria_prefix": "Show news "
+        },
+        "motivation": {
+            "title": "Daily Motivation",
+            "subtitle": "Keep your preparation mindset strong every day",
+            "pause_label": "Pause Motivation",
+            "resume_label": "Resume Motivation",
+            "default_tag": "Motivation",
+            "default_title": "Keep learning, keep growing.",
+            "default_summary": "Stay consistent and success will follow.",
+            "default_image_alt": "Motivation image",
+            "dot_aria_prefix": "Show motivation "
+        },
+        "exam_hub": {
+            "title": "Popular Odisha Exams",
+            "subtitle": "Explore programs by exam category. Click a main tile to view its sub-courses.",
+            "default_tile_title": "Upcoming Program",
+            "default_tile_meta": "Content will be updated dynamically."
+        },
+        "footer": {
+            "company_title": "Company",
+            "products_title": "Products",
+            "app_title": "Our App",
+            "follow_label": "Follow us on"
+        }
+    }) %}
+    {% set pdf_sections = pdf_sections | default([
+        {"label": "OPSC", "href": "#"},
+        {"label": "OSSC", "href": "#"},
+        {"label": "OSSSC", "href": "#"},
+        {"label": "More Sections Soon", "href": "#"}
+    ]) %}
+    {% set current_affairs_sections = current_affairs_sections | default([
+        {"label": "Politics", "href": "#"},
+        {"label": "Science", "href": "#"},
+        {"label": "Technology", "href": "#"},
+        {"label": "History", "href": "#"},
+        {"label": "Geography", "href": "#"},
+        {"label": "More Topics Soon", "href": "#"}
+    ]) %}
+    {% set hero_title = hero_title | default("Your AI Companion for Odisha Government Exam Success") %}
+    {% set hero_description = hero_description | default(
+        "Mantrana.AI combines smart practice, curated learning resources, and exam-focused guidance "
+        ~ "to support aspirants preparing for OPSC, OSSC, and OSSSC with clarity and confidence."
+    ) %}
+    {% set banner_note = banner_note | default(
+        "From test readiness to current affairs revision, Mantrana.AI helps candidates prepare with structured learning and measurable progress."
+    ) %}
+    {% set goal_heading = goal_heading | default("Goal of Mantrana.AI") %}
+    {% set goal_paragraphs = goal_paragraphs | default([
+        "At Mantrana.AI, we aim to make Odisha government exam preparation clear, practical, and confidence-driven for every learner. Our platform is designed to remove confusion and provide candidates a focused roadmap for OPSC, OSSC, and OSSSC.",
+        "Our approach combines quality study materials, guided test practice, and topic-wise progress tracking. Instead of overwhelming learners with scattered content, we organize preparation into achievable milestones that help candidates stay consistent week after week.",
+        "We also keep preparation aligned with real exam expectations through exam-oriented resources, category-wise current affairs, and revision support. The mission is to help every serious aspirant move from uncertainty to clarity and from effort to results."
+    ]) %}
+    {% set news_items = news_items | default([
+        {"tag": "OPSC Update", "title": "Prelims-focused current affairs revision strategy announced", "summary": "Mantrana.AI introduces a weekly current affairs revision framework for Odisha aspirants with topic mapping, MCQ drills, and rapid recap sessions.", "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80", "alt": "Student planning exam study schedule"},
+        {"tag": "OSSC Focus", "title": "New reasoning practice modules now available for fast learners", "summary": "High-frequency reasoning patterns from past OSSC questions are now grouped into short test sets to improve speed and reduce mistakes.", "image": "https://images.unsplash.com/photo-1494172961521-33799ddd43a5?auto=format&fit=crop&w=1200&q=80", "alt": "Students solving exam questions in classroom"},
+        {"tag": "OSSSC Track", "title": "Rural and district-level fact sheets added for targeted preparation", "summary": "District-specific quick notes and Odisha governance snapshots are now bundled into one preparation flow for OSSSC candidates.", "image": "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80", "alt": "Teacher guiding students in modern classroom"},
+        {"tag": "Tech in Learning", "title": "AI-powered doubt clustering helps identify weak subjects early", "summary": "Learner attempts are analyzed to detect weak topics and suggest focused practice plans before mock tests begin.", "image": "https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1200&q=80", "alt": "Students learning with laptop and notes"},
+        {"tag": "Exam Strategy", "title": "5-step answer writing drill launched for descriptive sections", "summary": "A guided writing routine now helps candidates structure answers with better clarity, point sequencing, and time management.", "image": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1200&q=80", "alt": "Learner writing exam answers on desk"},
+        {"tag": "Mock Series", "title": "Adaptive mock tests introduced with instant learning insights", "summary": "Each mock report now highlights accuracy trends, time usage, and recommended next-step chapters for better score progression.", "image": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80", "alt": "Students practicing with mock exam sheets"}
+    ]) %}
+    {% set below_slider_image_url = below_slider_image_url | default("https://images.pexels.com/photos/8471987/pexels-photo-8471987.jpeg?auto=compress&cs=tinysrgb&w=1400") %}
+    {% set below_slider_image_alt = below_slider_image_alt | default("AI educator helping Indian students in a classroom") %}
+    {% set goal_image_url = goal_image_url | default("https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1400&q=80") %}
+    {% set goal_image_alt = goal_image_alt | default("Students using AI-powered eLearning platform") %}
+    {% set motivation_items = motivation_items | default([
+        {"tag": "Mindset", "title": "Every chapter completed builds your selection confidence", "summary": "Turn daily study into visible progress. When concepts, revision, and tests are done consistently, exam pressure reduces naturally.", "image": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1200&q=80", "alt": "Student studying with focus"},
+        {"tag": "Discipline", "title": "Small daily preparation beats irregular long sessions", "summary": "A fixed routine with short measurable tasks often outperforms intense but inconsistent study cycles for competitive exams.", "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80", "alt": "Daily planning on desk"},
+        {"tag": "Practice", "title": "Mock tests train your accuracy before the real exam day", "summary": "Use mock tests to improve question selection, avoid panic, and build a score strategy that works under time pressure.", "image": "https://images.unsplash.com/photo-1494172961521-33799ddd43a5?auto=format&fit=crop&w=1200&q=80", "alt": "Exam-style writing practice"},
+        {"tag": "Focus", "title": "One topic at a time leads to deep conceptual strength", "summary": "Avoid fragmented preparation. Finish one block fully with notes and revision, then move to the next high-weightage unit.", "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80", "alt": "Student reading a notebook"},
+        {"tag": "Growth", "title": "Doubts solved today become your strongest answers tomorrow", "summary": "Track weak areas early and fix them through targeted practice. Doubt resolution is one of the fastest ways to raise scores.", "image": "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80", "alt": "Teacher guiding a student"}
+    ]) %}
+    {% set exam_catalog = exam_catalog | default([
+        {
+            "key": "opsc",
+            "label": "OPSC",
+            "subtitle": "Odisha Public Service Commission",
+            "tiles": [
+                {"title": "Civil Services Prelims", "meta": "GS + CSAT Focus", "href": "/exams/opsc/civil-services-prelims"},
+                {"title": "Civil Services Mains", "meta": "Answer Writing", "href": "/exams/opsc/civil-services-mains"},
+                {"title": "OAS Foundation Track", "meta": "Complete Syllabus", "href": "/exams/opsc/oas-foundation-track"},
+                {"title": "Optional Subject Lab", "meta": "Topic Mapping", "href": "/exams/opsc/optional-subject-lab"},
+                {"title": "Ethics & Essay Studio", "meta": "Weekly Practice", "href": "/exams/opsc/ethics-essay-studio"},
+                {"title": "Current Affairs Capsule", "meta": "Monthly Revision", "href": "/exams/opsc/current-affairs-capsule"},
+                {"title": "OPSC Mock Marathon", "meta": "Exam Simulation", "href": "/exams/opsc/opsc-mock-marathon"},
+                {"title": "Polity Quick Drill", "meta": "Concept Booster", "href": "/exams/opsc/polity-quick-drill"},
+                {"title": "Economy Scoring Pack", "meta": "Data + Analysis", "href": "/exams/opsc/economy-scoring-pack"},
+                {"title": "Interview Readiness", "meta": "Personality Prep", "href": "/exams/opsc/interview-readiness"}
+            ]
+        },
+        {
+            "key": "ossc",
+            "label": "OSSC",
+            "subtitle": "Odisha Staff Selection Commission",
+            "tiles": [
+                {"title": "Combined Graduate Level", "meta": "Tier Strategy", "href": "/exams/ossc/combined-graduate-level"},
+                {"title": "Junior Assistant Pack", "meta": "Core Practice", "href": "/exams/ossc/junior-assistant-pack"},
+                {"title": "CHSL-Style Reasoning", "meta": "Speed Improvement", "href": "/exams/ossc/chsl-style-reasoning"},
+                {"title": "Computer Skill Modules", "meta": "Practical Sets", "href": "/exams/ossc/computer-skill-modules"},
+                {"title": "Math High-Score Series", "meta": "Shortcut Methods", "href": "/exams/ossc/math-high-score-series"},
+                {"title": "General Awareness Vault", "meta": "Static + Current", "href": "/exams/ossc/general-awareness-vault"},
+                {"title": "OSSC Test Series X", "meta": "Full-Length Tests", "href": "/exams/ossc/ossc-test-series-x"},
+                {"title": "Language Booster", "meta": "Odia + English", "href": "/exams/ossc/language-booster"},
+                {"title": "Previous Paper Decode", "meta": "Pattern Insights", "href": "/exams/ossc/previous-paper-decode"},
+                {"title": "Descriptive Practice Bay", "meta": "Draft to Final", "href": "/exams/ossc/descriptive-practice-bay"}
+            ]
+        },
+        {
+            "key": "osssc",
+            "label": "OSSSC",
+            "subtitle": "Odisha Sub-Ordinate Staff Selection Commission",
+            "tiles": [
+                {"title": "RI/ARI Prep Course", "meta": "Rural Admin Focus", "href": "/exams/osssc/ri-ari-prep-course"},
+                {"title": "Panchayat Executive Kit", "meta": "Job Role Driven", "href": "/exams/osssc/panchayat-executive-kit"},
+                {"title": "District GK Highlights", "meta": "Odisha Specific", "href": "/exams/osssc/district-gk-highlights"},
+                {"title": "Village-Level Data Notes", "meta": "Quick Revision", "href": "/exams/osssc/village-level-data-notes"},
+                {"title": "OSSSC Test Simulations", "meta": "Timed Practice", "href": "/exams/osssc/osssc-test-simulations"},
+                {"title": "Arithmetic Booster Set", "meta": "Accuracy Build", "href": "/exams/osssc/arithmetic-booster-set"},
+                {"title": "Reasoning Edge Sprint", "meta": "Daily Quiz", "href": "/exams/osssc/reasoning-edge-sprint"},
+                {"title": "Language Scoring Blocks", "meta": "Odia Priority", "href": "/exams/osssc/language-scoring-blocks"},
+                {"title": "Exam Day Readiness", "meta": "Execution Plan", "href": "/exams/osssc/exam-day-readiness"},
+                {"title": "Selection Target Program", "meta": "Step-by-Step", "href": "/exams/osssc/selection-target-program"}
+            ]
+        }
+    ]) %}
+    {% set footer_data = footer_data | default({
+        "brand_text": "Mantrana.AI",
+        "company_name": "Mantrana.AI Edu Solutions Pvt. Ltd.",
+        "address_lines": [
+            "Bhubaneswar, Odisha",
+            "India - 751001"
+        ],
+        "support_email": "support@mantrana.ai",
+        "office_hours": "Office Hours: 10 AM to 7 PM (all days)",
+        "company_links": [
+            {"label": "About Us", "href": "#"},
+            {"label": "Careers", "href": "#"},
+            {"label": "Media", "href": "#"},
+            {"label": "Sitemap", "href": "#"}
+        ],
+        "product_links": [
+            {"label": "Test Series", "href": "#"},
+            {"label": "Live Tests & Quizzes", "href": "#"},
+            {"label": "Practice", "href": "#"},
+            {"label": "Live Classes", "href": "#"},
+            {"label": "Current Affairs", "href": "#"},
+            {"label": "Doubt Solving", "href": "#"}
+        ],
+        "app_badges": [
+            {"label": "Download on App Store", "href": "#"},
+            {"label": "Get it on Google Play", "href": "#"}
+        ],
+        "social_links": [
+            {"label": "F", "href": "#", "aria": "Facebook"},
+            {"label": "X", "href": "#", "aria": "Twitter/X"},
+            {"label": "IN", "href": "#", "aria": "LinkedIn"},
+            {"label": "YT", "href": "#", "aria": "YouTube"}
+        ],
+        "copyright_text": "Copyright \u00a9 2026 Mantrana.AI Edu Solutions Pvt. Ltd. All rights reserved",
+        "legal_links": [
+            {"label": "User Policy", "href": "#"},
+            {"label": "Terms", "href": "#"},
+            {"label": "Privacy", "href": "#"}
+        ]
+    }) %}
+    {% set hero_slides = hero_slides | default([
+        {"src": "https://picsum.photos/seed/opsc1/1400/700", "alt": "Odisha eLearning slide 1"},
+        {"src": "https://picsum.photos/seed/opsc2/1400/700", "alt": "Odisha eLearning slide 2"},
+        {"src": "https://picsum.photos/seed/opsc3/1400/700", "alt": "Odisha eLearning slide 3"},
+        {"src": "https://picsum.photos/seed/opsc4/1400/700", "alt": "Odisha eLearning slide 4"},
+        {"src": "https://picsum.photos/seed/opsc5/1400/700", "alt": "Odisha eLearning slide 5"},
+        {"src": "https://picsum.photos/seed/opsc6/1400/700", "alt": "Odisha eLearning slide 6"},
+        {"src": "https://picsum.photos/seed/opsc7/1400/700", "alt": "Odisha eLearning slide 7"},
+        {"src": "https://picsum.photos/seed/opsc8/1400/700", "alt": "Odisha eLearning slide 8"},
+        {"src": "https://picsum.photos/seed/opsc9/1400/700", "alt": "Odisha eLearning slide 9"},
+        {"src": "https://picsum.photos/seed/opsc10/1400/700", "alt": "Odisha eLearning slide 10"}
+    ]) %}
+
+    <header class="top-nav">
+        <div class="nav-wrap">
+            <div class="nav-left">
+                <a class="login-btn" href="{{ login_url }}">{{ ui_text.login_cta | default("LOGIN / SIGN-UP") }}</a>
+                <ul class="menu">
+                    <li class="menu-item">
+                        <a class="menu-link" href="{{ practice_pack.href }}" data-tab-key="practice-pack">{{ practice_pack.label }}</a>
+                    </li>
+                    <li class="menu-item">
+                        <a class="menu-link" href="{{ pdf_menu.href }}" data-tab-key="pdfs">{{ pdf_menu.label }}</a>
+                        <ul class="dropdown">
+                            {% for item in pdf_sections %}
+                                <li><a href="{{ item.href }}" data-section="pdf">{{ item.label }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="menu-item">
+                        <a class="menu-link" href="{{ current_affairs_menu.href }}" data-tab-key="current-affairs">{{ current_affairs_menu.label }}</a>
+                        <ul class="dropdown">
+                            {% for item in current_affairs_sections %}
+                                <li><a href="{{ item.href }}" data-section="current-affairs">{{ item.label }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="logo-holder">
+                {% if logo_url %}
+                    <img class="logo-img" src="{{ logo_url }}" alt="{{ company_name }} logo">
+                {% else %}
+                    <div class="logo-box">{{ logo_text }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main class="page-wrap">
+        <section class="hero-card">
+            <div class="hero-copy">
+                <span class="hero-tag">{{ ui_text.hero_badge }}</span>
+                <h1>{{ hero_title }}</h1>
+                <p>{{ hero_description }}</p>
+            </div>
+
+            <div class="slider" id="autoSlider">
+                {% for slide in hero_slides %}
+                    <img class="slide{% if loop.first %} active{% endif %}" src="{{ slide.src }}" alt="{{ slide.alt }}">
+                {% endfor %}
+                <div class="dot-wrap" id="sliderDots"></div>
+            </div>
+
+            <div class="intro-strip">
+                {{ banner_note }}
+            </div>
+        </section>
+
+        <section class="below-slider-showcase">
+            <aside class="news-showcase">
+                <div class="news-header">
+                    <div class="news-header-copy">
+                        <h3>{{ ui_text.news.title }}</h3>
+                        <p>{{ ui_text.news.subtitle }}</p>
+                    </div>
+                    <button class="news-toggle" id="newsToggle" type="button" aria-pressed="false">{{ ui_text.news.pause_label }}</button>
+                </div>
+                <div class="news-main">
+                    <div class="news-image-wrap">
+                        <img
+                            id="newsImage"
+                            class="news-image"
+                            src="{{ news_items[0].image if news_items else 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80' }}"
+                            alt="{{ news_items[0].alt if news_items else ui_text.news.default_image_alt }}"
+                        >
+                    </div>
+                    <div class="news-content">
+                        <span class="news-tag" id="newsTag">{{ news_items[0].tag if news_items else ui_text.news.default_tag }}</span>
+                        <h4 class="news-title" id="newsTitle">{{ news_items[0].title if news_items else ui_text.news.default_title }}</h4>
+                        <p class="news-summary" id="newsSummary">{{ news_items[0].summary if news_items else ui_text.news.default_summary }}</p>
+                        <div class="news-footer">
+                            <span class="news-counter" id="newsCounter">1 / {{ news_items|length if news_items else 1 }}</span>
+                            <div class="news-dots" id="newsDots"></div>
+                        </div>
+                    </div>
+                </div>
+                <script id="newsPayload" type="application/json">{{ news_items | tojson }}</script>
+            </aside>
+
+            <img
+                class="below-slider-image"
+                src="{{ below_slider_image_url }}"
+                alt="{{ below_slider_image_alt }}"
+                onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1400&q=80';this.alt='Students in an AI-supported classroom';"
+            >
+        </section>
+
+        <section class="insights-grid">
+            <div class="goal-section">
+                <h2>{{ goal_heading }}</h2>
+                {% for paragraph in goal_paragraphs %}
+                    <p>{{ paragraph }}</p>
+                {% endfor %}
+                <div class="goal-image-wrap">
+                    <img class="goal-image" src="{{ goal_image_url }}" alt="{{ goal_image_alt }}">
+                </div>
+            </div>
+
+            <aside class="motivation-panel">
+                <div class="motivation-header">
+                    <div class="motivation-header-copy">
+                        <h3>{{ ui_text.motivation.title }}</h3>
+                        <p>{{ ui_text.motivation.subtitle }}</p>
+                    </div>
+                    <button class="motivation-toggle" id="motivationToggle" type="button" aria-pressed="false">{{ ui_text.motivation.pause_label }}</button>
+                </div>
+                <div class="motivation-main">
+                    <div class="motivation-image-wrap">
+                        <img
+                            id="motivationImage"
+                            class="motivation-image"
+                            src="{{ motivation_items[0].image if motivation_items else 'https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1200&q=80' }}"
+                            alt="{{ motivation_items[0].alt if motivation_items else ui_text.motivation.default_image_alt }}"
+                        >
+                    </div>
+                    <div class="motivation-content">
+                        <span class="motivation-tag" id="motivationTag">{{ motivation_items[0].tag if motivation_items else ui_text.motivation.default_tag }}</span>
+                        <h4 class="motivation-title" id="motivationTitle">{{ motivation_items[0].title if motivation_items else ui_text.motivation.default_title }}</h4>
+                        <p class="motivation-summary" id="motivationSummary">{{ motivation_items[0].summary if motivation_items else ui_text.motivation.default_summary }}</p>
+                        <div class="motivation-footer">
+                            <span class="motivation-counter" id="motivationCounter">1 / {{ motivation_items|length if motivation_items else 1 }}</span>
+                            <div class="motivation-dots" id="motivationDots"></div>
+                        </div>
+                    </div>
+                </div>
+                <script id="motivationPayload" type="application/json">{{ motivation_items | tojson }}</script>
+            </aside>
+        </section>
+
+        <section class="exam-hub">
+            <h3>{{ ui_text.exam_hub.title }}</h3>
+            <p class="exam-subtitle">{{ ui_text.exam_hub.subtitle }}</p>
+            <div class="exam-main-tabs" id="examMainTabs">
+                {% for exam in exam_catalog %}
+                    <button
+                        type="button"
+                        class="exam-main-tab{% if loop.first %} active{% endif %}"
+                        data-exam-key="{{ exam.key }}"
+                    >
+                        {{ exam.label }}
+                    </button>
+                {% endfor %}
+            </div>
+            <div class="exam-sub-grid" id="examSubGrid"></div>
+            <script id="examCatalogPayload" type="application/json">{{ exam_catalog | tojson }}</script>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-top">
+            <section class="footer-brand">
+                <h2 class="footer-logo">{{ footer_data.brand_text }}</h2>
+                <p class="footer-company-name">{{ footer_data.company_name }}</p>
+                <p class="footer-address">
+                    {% for line in footer_data.address_lines %}
+                        {{ line }}{% if not loop.last %}<br>{% endif %}
+                    {% endfor %}
+                </p>
+                <p class="footer-support">{{ footer_data.support_email }}</p>
+                <p class="footer-support">{{ footer_data.office_hours }}</p>
+            </section>
+
+            <section>
+                <h3 class="footer-title">{{ ui_text.footer.company_title }}</h3>
+                <ul class="footer-links">
+                    {% for item in footer_data.company_links %}
+                        <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section>
+                <h3 class="footer-title">{{ ui_text.footer.products_title }}</h3>
+                <ul class="footer-links">
+                    {% for item in footer_data.product_links %}
+                        <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section>
+                <h3 class="footer-title">{{ ui_text.footer.app_title }}</h3>
+                <div class="footer-app-badges">
+                    {% for badge in footer_data.app_badges %}
+                        <a class="app-badge" href="{{ badge.href }}">{{ badge.label }}</a>
+                    {% endfor %}
+                </div>
+                <p class="footer-social-label">{{ ui_text.footer.follow_label }}</p>
+                <div class="footer-socials">
+                    {% for social in footer_data.social_links %}
+                        <a href="{{ social.href }}" aria-label="{{ social.aria }}">{{ social.label }}</a>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+
+        <div class="footer-bottom">
+            <p>{{ footer_data.copyright_text }}</p>
+            <div class="footer-bottom-links">
+                {% for link in footer_data.legal_links %}
+                    <a href="{{ link.href }}">{{ link.label }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </footer>
+
+    <script id="uiTextPayload" type="application/json">{{ ui_text | tojson }}</script>
+    <script>
+        (function () {
+            const slides = document.querySelectorAll(".slide");
+            const dotsWrap = document.getElementById("sliderDots");
+            const slider = document.getElementById("autoSlider");
+            const uiTextPayload = document.getElementById("uiTextPayload");
+            let uiText = {};
+            try {
+                uiText = JSON.parse((uiTextPayload && uiTextPayload.textContent) || "{}");
+            } catch (error) {
+                uiText = {};
+            }
+            let index = 0;
+            let timerId = null;
+            let isPaused = false;
+
+            if (!slides.length || !dotsWrap || !slider) {
+                return;
+            }
+
+            slides.forEach((_, idx) => {
+                const dot = document.createElement("button");
+                dot.className = idx === 0 ? "dot active" : "dot";
+                dot.type = "button";
+                dot.setAttribute("aria-label", "Go to slide " + (idx + 1));
+                dot.addEventListener("click", function (event) {
+                    event.stopPropagation();
+                    showSlide(idx);
+                    if (!isPaused) {
+                        resetAutoPlay();
+                    }
+                });
+                dotsWrap.appendChild(dot);
+            });
+
+            const dots = dotsWrap.querySelectorAll(".dot");
+
+            function showSlide(newIndex) {
+                slides[index].classList.remove("active");
+                dots[index].classList.remove("active");
+                index = newIndex;
+                slides[index].classList.add("active");
+                dots[index].classList.add("active");
+            }
+
+            function nextSlide() {
+                showSlide((index + 1) % slides.length);
+            }
+
+            function startAutoPlay() {
+                if (timerId) {
+                    return;
+                }
+                timerId = setInterval(nextSlide, 3000);
+            }
+
+            function stopAutoPlay() {
+                clearInterval(timerId);
+                timerId = null;
+            }
+
+            function resetAutoPlay() {
+                stopAutoPlay();
+                startAutoPlay();
+            }
+
+            startAutoPlay();
+            slider.title = uiText.slider_pause_hint || "Click to pause slider";
+
+            slider.addEventListener("click", function () {
+                if (isPaused) {
+                    isPaused = false;
+                    startAutoPlay();
+                    slider.title = uiText.slider_pause_hint || "Click to pause slider";
+                } else {
+                    isPaused = true;
+                    stopAutoPlay();
+                    slider.title = uiText.slider_resume_hint || "Paused. Click to resume slider";
+                }
+            });
+
+            const motivationPayload = document.getElementById("motivationPayload");
+            const motivationImage = document.getElementById("motivationImage");
+            const motivationTag = document.getElementById("motivationTag");
+            const motivationTitle = document.getElementById("motivationTitle");
+            const motivationSummary = document.getElementById("motivationSummary");
+            const motivationCounter = document.getElementById("motivationCounter");
+            const motivationDots = document.getElementById("motivationDots");
+            const motivationToggle = document.getElementById("motivationToggle");
+
+            if (
+                motivationPayload &&
+                motivationImage &&
+                motivationTag &&
+                motivationTitle &&
+                motivationSummary &&
+                motivationCounter &&
+                motivationDots &&
+                motivationToggle
+            ) {
+                let motivationData = [];
+                try {
+                    motivationData = JSON.parse(motivationPayload.textContent || "[]");
+                } catch (error) {
+                    motivationData = [];
+                }
+
+                if (motivationData.length) {
+                    let currentMotivationIndex = 0;
+                    let motivationTimerId = null;
+                    let isMotivationPaused = false;
+
+                    function renderMotivationDots() {
+                        motivationDots.innerHTML = "";
+                        motivationData.forEach(function (_, dotIndex) {
+                            const dot = document.createElement("button");
+                            dot.type = "button";
+                            dot.className = dotIndex === currentMotivationIndex ? "motivation-dot active" : "motivation-dot";
+                            const motivationPrefix = (uiText.motivation && uiText.motivation.dot_aria_prefix) || "Show motivation ";
+                            dot.setAttribute("aria-label", motivationPrefix + (dotIndex + 1));
+                            dot.addEventListener("click", function () {
+                                currentMotivationIndex = dotIndex;
+                                updateMotivation();
+                                if (!isMotivationPaused) {
+                                    resetMotivationAutoPlay();
+                                }
+                            });
+                            motivationDots.appendChild(dot);
+                        });
+                    }
+
+                    function updateMotivation() {
+                        const item = motivationData[currentMotivationIndex] || {};
+                        motivationImage.src = item.image || motivationImage.src;
+                        motivationImage.alt = item.alt || (uiText.motivation && uiText.motivation.default_image_alt) || "Motivation image";
+                        motivationTag.textContent = item.tag || (uiText.motivation && uiText.motivation.default_tag) || "Motivation";
+                        motivationTitle.textContent = item.title || item.text || (uiText.motivation && uiText.motivation.default_title) || "Keep learning, keep growing.";
+                        motivationSummary.textContent = item.summary || (uiText.motivation && uiText.motivation.default_summary) || "";
+                        motivationCounter.textContent = (currentMotivationIndex + 1) + " / " + motivationData.length;
+
+                        const dots = motivationDots.querySelectorAll(".motivation-dot");
+                        dots.forEach(function (dot, idx) {
+                            dot.classList.toggle("active", idx === currentMotivationIndex);
+                        });
+                    }
+
+                    function nextMotivation() {
+                        currentMotivationIndex = (currentMotivationIndex + 1) % motivationData.length;
+                        updateMotivation();
+                    }
+
+                    function startMotivationAutoPlay() {
+                        if (motivationData.length <= 1 || motivationTimerId) {
+                            return;
+                        }
+                        motivationTimerId = setInterval(nextMotivation, 5000);
+                    }
+
+                    function stopMotivationAutoPlay() {
+                        clearInterval(motivationTimerId);
+                        motivationTimerId = null;
+                    }
+
+                    function resetMotivationAutoPlay() {
+                        stopMotivationAutoPlay();
+                        startMotivationAutoPlay();
+                    }
+
+                    renderMotivationDots();
+                    updateMotivation();
+                    startMotivationAutoPlay();
+
+                    motivationToggle.addEventListener("click", function () {
+                        if (isMotivationPaused) {
+                            isMotivationPaused = false;
+                            motivationToggle.textContent = (uiText.motivation && uiText.motivation.pause_label) || "Pause Motivation";
+                            motivationToggle.setAttribute("aria-pressed", "false");
+                            startMotivationAutoPlay();
+                        } else {
+                            isMotivationPaused = true;
+                            motivationToggle.textContent = (uiText.motivation && uiText.motivation.resume_label) || "Resume Motivation";
+                            motivationToggle.setAttribute("aria-pressed", "true");
+                            stopMotivationAutoPlay();
+                        }
+                    });
+                }
+            }
+
+            const newsPayload = document.getElementById("newsPayload");
+            const newsImage = document.getElementById("newsImage");
+            const newsTag = document.getElementById("newsTag");
+            const newsTitle = document.getElementById("newsTitle");
+            const newsSummary = document.getElementById("newsSummary");
+            const newsCounter = document.getElementById("newsCounter");
+            const newsDots = document.getElementById("newsDots");
+            const newsToggle = document.getElementById("newsToggle");
+
+            if (
+                newsPayload &&
+                newsImage &&
+                newsTag &&
+                newsTitle &&
+                newsSummary &&
+                newsCounter &&
+                newsDots &&
+                newsToggle
+            ) {
+                let newsData = [];
+                try {
+                    newsData = JSON.parse(newsPayload.textContent || "[]");
+                } catch (error) {
+                    newsData = [];
+                }
+
+                if (newsData.length) {
+                    let currentNewsIndex = 0;
+                    let newsTimerId = null;
+                    let isNewsPaused = false;
+
+                    function renderNewsDots() {
+                        newsDots.innerHTML = "";
+                        newsData.forEach(function (_, dotIndex) {
+                            const dot = document.createElement("button");
+                            dot.type = "button";
+                            dot.className = dotIndex === currentNewsIndex ? "news-dot active" : "news-dot";
+                            const newsPrefix = (uiText.news && uiText.news.dot_aria_prefix) || "Show news ";
+                            dot.setAttribute("aria-label", newsPrefix + (dotIndex + 1));
+                            dot.addEventListener("click", function () {
+                                currentNewsIndex = dotIndex;
+                                updateNews();
+                                if (!isNewsPaused) {
+                                    resetNewsAutoPlay();
+                                }
+                            });
+                            newsDots.appendChild(dot);
+                        });
+                    }
+
+                    function updateNews() {
+                        const item = newsData[currentNewsIndex] || {};
+                        newsImage.src = item.image || newsImage.src;
+                        newsImage.alt = item.alt || (uiText.news && uiText.news.default_image_alt) || "Exam news image";
+                        newsTag.textContent = item.tag || (uiText.news && uiText.news.default_tag) || "News";
+                        newsTitle.textContent = item.title || (uiText.news && uiText.news.default_title) || "Latest update";
+                        newsSummary.textContent = item.summary || (uiText.news && uiText.news.default_summary) || "";
+                        newsCounter.textContent = (currentNewsIndex + 1) + " / " + newsData.length;
+
+                        const dots = newsDots.querySelectorAll(".news-dot");
+                        dots.forEach(function (dot, idx) {
+                            dot.classList.toggle("active", idx === currentNewsIndex);
+                        });
+                    }
+
+                    function nextNews() {
+                        currentNewsIndex = (currentNewsIndex + 1) % newsData.length;
+                        updateNews();
+                    }
+
+                    function startNewsAutoPlay() {
+                        if (newsData.length <= 1 || newsTimerId) {
+                            return;
+                        }
+                        newsTimerId = setInterval(nextNews, 5000);
+                    }
+
+                    function stopNewsAutoPlay() {
+                        clearInterval(newsTimerId);
+                        newsTimerId = null;
+                    }
+
+                    function resetNewsAutoPlay() {
+                        stopNewsAutoPlay();
+                        startNewsAutoPlay();
+                    }
+
+                    renderNewsDots();
+                    updateNews();
+                    startNewsAutoPlay();
+
+                    newsToggle.addEventListener("click", function () {
+                        if (isNewsPaused) {
+                            isNewsPaused = false;
+                            newsToggle.textContent = (uiText.news && uiText.news.pause_label) || "Pause News";
+                            newsToggle.setAttribute("aria-pressed", "false");
+                            startNewsAutoPlay();
+                        } else {
+                            isNewsPaused = true;
+                            newsToggle.textContent = (uiText.news && uiText.news.resume_label) || "Resume News";
+                            newsToggle.setAttribute("aria-pressed", "true");
+                            stopNewsAutoPlay();
+                        }
+                    });
+                }
+            }
+
+            const examCatalogPayload = document.getElementById("examCatalogPayload");
+            const examMainTabs = document.getElementById("examMainTabs");
+            const examSubGrid = document.getElementById("examSubGrid");
+
+            if (examCatalogPayload && examMainTabs && examSubGrid) {
+                let examCatalog = [];
+                try {
+                    examCatalog = JSON.parse(examCatalogPayload.textContent || "[]");
+                } catch (error) {
+                    examCatalog = [];
+                }
+
+                if (examCatalog.length) {
+                    const tabButtons = Array.from(examMainTabs.querySelectorAll(".exam-main-tab"));
+                    let activeExamKey = tabButtons[0] ? tabButtons[0].dataset.examKey : "";
+
+                    function slugify(value) {
+                        return String(value || "")
+                            .toLowerCase()
+                            .trim()
+                            .replace(/[^a-z0-9\s-]/g, "")
+                            .replace(/\s+/g, "-")
+                            .replace(/-+/g, "-");
+                    }
+
+                    function renderSubTiles(examKey) {
+                        const selected = examCatalog.find(function (item) {
+                            return item.key === examKey;
+                        }) || examCatalog[0];
+
+                        activeExamKey = selected.key || examKey;
+                        examSubGrid.innerHTML = "";
+
+                        const tiles = Array.isArray(selected.tiles) ? selected.tiles : [];
+                        tiles.forEach(function (tile) {
+                            const tileLink = document.createElement("a");
+                            tileLink.className = "exam-sub-tile";
+                            tileLink.href = tile.href || (("{{ exam_route_base }}") + "/" + (selected.key || "general") + "/" + slugify(tile.title || "upcoming-program"));
+                            tileLink.setAttribute("data-exam-key", selected.key || "");
+
+                            const title = document.createElement("h4");
+                            title.className = "exam-sub-title";
+                            title.textContent = tile.title || ((uiText.exam_hub && uiText.exam_hub.default_tile_title) || "Upcoming Program");
+
+                            const meta = document.createElement("p");
+                            meta.className = "exam-sub-meta";
+                            meta.textContent = tile.meta || ((uiText.exam_hub && uiText.exam_hub.default_tile_meta) || "Content will be updated dynamically.");
+
+                            tileLink.appendChild(title);
+                            tileLink.appendChild(meta);
+                            examSubGrid.appendChild(tileLink);
+                        });
+
+                        tabButtons.forEach(function (button) {
+                            button.classList.toggle("active", button.dataset.examKey === activeExamKey);
+                        });
+                    }
+
+                    tabButtons.forEach(function (button) {
+                        button.addEventListener("click", function () {
+                            renderSubTiles(button.dataset.examKey || "");
+                        });
+                    });
+
+                    renderSubTiles(activeExamKey);
+                }
+            }
+        })();
+    </script>
+</body>
+</html>

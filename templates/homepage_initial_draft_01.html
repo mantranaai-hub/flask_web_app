@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mantrana.AI | Odisha eLearning Platform</title>
+    <style>
+        :root {
+            --bg-main: #f4f8ff;
+            --bg-card: #ffffff;
+            --ink-main: #14213d;
+            --ink-soft: #4f5d75;
+            --brand: #265df2;
+            --brand-dark: #1f4ace;
+            --accent: #fca311;
+            --line: #dbe3f5;
+            --shadow: 0 18px 40px rgba(27, 60, 122, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Inter", "Segoe UI", Arial, sans-serif;
+            color: var(--ink-main);
+            background: linear-gradient(180deg, #f7faff 0%, #eff5ff 100%);
+        }
+
+        .top-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .nav-wrap {
+            max-width: 1220px;
+            margin: 0 auto;
+            padding: 0.95rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .login-btn {
+            text-decoration: none;
+            color: #fff;
+            background: linear-gradient(135deg, var(--brand) 0%, #4f79ff 100%);
+            padding: 0.6rem 1rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.01em;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 8px 18px rgba(38, 93, 242, 0.24);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 20px rgba(38, 93, 242, 0.3);
+        }
+
+        .menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .menu-item {
+            position: relative;
+        }
+
+        .menu-link {
+            display: inline-block;
+            text-decoration: none;
+            color: var(--ink-main);
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.65rem 0.9rem;
+            border-radius: 8px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .menu-link:hover {
+            background: #e9efff;
+            color: var(--brand-dark);
+        }
+
+        .menu-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown {
+            position: absolute;
+            left: 0;
+            top: calc(100% + 8px);
+            width: 210px;
+            list-style: none;
+            margin: 0;
+            padding: 0.45rem;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px);
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+        }
+
+        .dropdown a {
+            display: block;
+            text-decoration: none;
+            color: var(--ink-main);
+            font-size: 0.92rem;
+            padding: 0.58rem 0.65rem;
+            border-radius: 8px;
+        }
+
+        .dropdown a:hover {
+            background: #edf2ff;
+            color: var(--brand-dark);
+        }
+
+        .logo-holder {
+            min-width: 160px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .logo-box {
+            width: 170px;
+            height: 50px;
+            border: 2px dashed #aac0ff;
+            border-radius: 12px;
+            background: #f5f8ff;
+            color: #2a4ba6;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 0.02em;
+            font-size: 0.95rem;
+        }
+
+        .hero-section {
+            max-width: 1220px;
+            margin: 1.15rem auto 2rem;
+            padding: 0 1.25rem;
+        }
+
+        .hero-card {
+            background: var(--bg-card);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .slider {
+            position: relative;
+            width: 100%;
+            height: 440px;
+            overflow: hidden;
+            background: #dfe8ff;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slider-caption {
+            position: absolute;
+            left: 24px;
+            bottom: 24px;
+            background: rgba(7, 18, 46, 0.72);
+            color: #fff;
+            padding: 0.9rem 1rem;
+            border-radius: 10px;
+            max-width: 440px;
+        }
+
+        .slider-caption h1 {
+            margin: 0 0 0.35rem;
+            font-size: 1.5rem;
+            line-height: 1.25;
+        }
+
+        .slider-caption p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #e8efff;
+        }
+
+        .dot-wrap {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 12px;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.55);
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .dot.active {
+            background: var(--accent);
+        }
+
+        .intro-strip {
+            padding: 1rem 1.2rem;
+            background: linear-gradient(90deg, #f6f9ff 0%, #eef4ff 100%);
+            border-top: 1px solid var(--line);
+            color: var(--ink-soft);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 960px) {
+            .slider {
+                height: 360px;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .nav-wrap {
+                align-items: flex-start;
+            }
+
+            .nav-left {
+                width: 100%;
+            }
+
+            .logo-holder {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .slider {
+                height: 300px;
+            }
+
+            .slider-caption {
+                left: 14px;
+                right: 14px;
+                bottom: 14px;
+                max-width: none;
+            }
+
+            .slider-caption h1 {
+                font-size: 1.15rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="top-nav">
+        <div class="nav-wrap">
+            <div class="nav-left">
+                <a class="login-btn" href="/login">LOGIN / SIGN-UP</a>
+                <ul class="menu">
+                    <li class="menu-item">
+                        <a class="menu-link" href="#">Practice Packs</a>
+                    </li>
+                    <li class="menu-item">
+                        <a class="menu-link" href="#">PDFs</a>
+                        <ul class="dropdown">
+                            <li><a href="#">OPSC</a></li>
+                            <li><a href="#">OSSC</a></li>
+                            <li><a href="#">OSSSC</a></li>
+                            <li><a href="#">More Sections Soon</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item">
+                        <a class="menu-link" href="#">Current Affairs</a>
+                        <ul class="dropdown">
+                            <li><a href="#">Politics</a></li>
+                            <li><a href="#">Science</a></li>
+                            <li><a href="#">Technology</a></li>
+                            <li><a href="#">History</a></li>
+                            <li><a href="#">Geography</a></li>
+                            <li><a href="#">More Topics Soon</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="logo-holder">
+                <!-- Replace this placeholder with your real Mantrana.AI logo image later -->
+                <div class="logo-box">Mantrana.AI LOGO</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="hero-section">
+        <section class="hero-card">
+            <div class="slider" id="autoSlider">
+                <img class="slide active" src="https://picsum.photos/seed/opsc1/1400/700" alt="Odisha exam preparation slide 1">
+                <img class="slide" src="https://picsum.photos/seed/opsc2/1400/700" alt="Odisha exam preparation slide 2">
+                <img class="slide" src="https://picsum.photos/seed/opsc3/1400/700" alt="Odisha exam preparation slide 3">
+                <img class="slide" src="https://picsum.photos/seed/opsc4/1400/700" alt="Odisha exam preparation slide 4">
+                <img class="slide" src="https://picsum.photos/seed/opsc5/1400/700" alt="Odisha exam preparation slide 5">
+                <img class="slide" src="https://picsum.photos/seed/opsc6/1400/700" alt="Odisha exam preparation slide 6">
+                <img class="slide" src="https://picsum.photos/seed/opsc7/1400/700" alt="Odisha exam preparation slide 7">
+                <img class="slide" src="https://picsum.photos/seed/opsc8/1400/700" alt="Odisha exam preparation slide 8">
+                <img class="slide" src="https://picsum.photos/seed/opsc9/1400/700" alt="Odisha exam preparation slide 9">
+                <img class="slide" src="https://picsum.photos/seed/opsc10/1400/700" alt="Odisha exam preparation slide 10">
+
+                <div class="slider-caption">
+                    <h1>Prepare Smart for Odisha Government Exams</h1>
+                    <p>
+                        One learning platform for OPSC, OSSC, OSSSC and current affairs updates
+                        designed for serious aspirants.
+                    </p>
+                </div>
+
+                <div class="dot-wrap" id="sliderDots"></div>
+            </div>
+            <div class="intro-strip">
+                Mantrana.AI is an e-learning platform focused on Odisha government exam preparation
+                with dedicated test practice, curated PDFs, and category-wise current affairs.
+            </div>
+        </section>
+    </main>
+
+    <script>
+        (function () {
+            const slides = document.querySelectorAll(".slide");
+            const dotsWrap = document.getElementById("sliderDots");
+            let index = 0;
+            let timerId = null;
+
+            slides.forEach((_, idx) => {
+                const dot = document.createElement("button");
+                dot.className = idx === 0 ? "dot active" : "dot";
+                dot.setAttribute("aria-label", "Go to slide " + (idx + 1));
+                dot.addEventListener("click", function () {
+                    showSlide(idx);
+                    resetAutoPlay();
+                });
+                dotsWrap.appendChild(dot);
+            });
+
+            const dots = dotsWrap.querySelectorAll(".dot");
+
+            function showSlide(newIndex) {
+                slides[index].classList.remove("active");
+                dots[index].classList.remove("active");
+
+                index = newIndex;
+
+                slides[index].classList.add("active");
+                dots[index].classList.add("active");
+            }
+
+            function nextSlide() {
+                const next = (index + 1) % slides.length;
+                showSlide(next);
+            }
+
+            function startAutoPlay() {
+                timerId = setInterval(nextSlide, 3000);
+            }
+
+            function resetAutoPlay() {
+                clearInterval(timerId);
+                startAutoPlay();
+            }
+
+            startAutoPlay();
+        })();
+    </script>
+</body>
+</html>

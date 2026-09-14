@@ -15,5 +15,8 @@ def login():
 def landpage():
     return "Welcome to my website, Its a AI enabled website."
 
+@app.route("/candidate_login", methods=['POST'])
+def can_login():
+    print("candidate login")
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000,debug=True)

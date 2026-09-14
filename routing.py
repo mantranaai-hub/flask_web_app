@@ -13,7 +13,7 @@ def login():
 
 @app.route("/landpage",methods=["POST"])
 def landpage():
-    return "Welcome to my website"
+    return "Welcome to my website, Its a AI enabled website."
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000,debug=True)

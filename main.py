@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 '''
 It creates the Flask instance
 which will be your WSGI (web server gateway interface) application
